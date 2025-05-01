@@ -1,0 +1,32 @@
+Assignment 9
+
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df=sns.load_dataset('titanic')
+df.isnull().sum()
+
+
+df['age'] = df['age'].fillna(df['age'].mean())
+df['embarked'] = df['embarked'].fillna(df['embarked'].mode()[0])
+df['deck'] = df['deck'].fillna(df['deck'].mode()[0])
+df['embark_town'] = df['embark_town'].fillna(df['embark_town'].mode()[0])
+
+
+df.isnull().sum()
+
+
+sns.boxplot(x='survived', y='age', hue='sex', data=df)
+
+sns.boxplot(x='pclass', y='age', hue='survived', data=df)
+
+sns.boxplot(x='sex', y='age', data=df)
+
+sns.boxplot(x='survived', y='age', data=df)
+plt.title('Age Distribution by Survival Status')
+plt.xlabel('Survived')
+plt.ylabel('Age')
+plt.xticks([0, 1], ['No', 'Yes'])
+plt.show()

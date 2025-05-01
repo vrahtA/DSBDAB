@@ -1,0 +1,45 @@
+Assignment 2
+
+import pandas as pd
+import numpy as np
+
+df=pd.DataFrame({'Roll_No':[1,2,3,4,5,6,7,8,9,10],
+                'Name':['Kalpak','Pratik','Mauli','Sanskar','Krishna','Nikhil','Dhirendra','Manoj','Girish','Mayur'],
+                'DBMS':[175,96,50,66,70,81,75,45,59,69],
+                'TOC':[60,52,147,66,70,87,84,79,174,60],
+                'CNS':[86,198,67,45,67,89,73,162,79,87]}, 
+                index=[1,2,4,7,9,10,12,13,14,15])
+
+df
+df=df.reindex([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+df
+
+df.describe()
+df.isnull()
+df.isnull().sum()
+df.isna().sum()
+
+df['Roll_No'].fillna(method='ffill',inplace=True)
+df['Name'].fillna(method='ffill',inplace=True)
+df['DBMS'].fillna(method='ffill',inplace=True)
+df['TOC'].fillna(method='ffill',inplace=True)
+df['CNS'].fillna(method='ffill',inplace=True)
+
+df.describe()
+
+num=['Roll_No','DBMS','TOC','CNS']
+import matplotlib as plt
+df.boxplot(num)
+Q1=df[num].quantile(0.25)
+Q3=df[num].quantile(0.75)
+IQR=Q3-Q1
+lower=Q1-(1.5*IQR)
+upper=Q3+(1.5*IQR)
+df[num]=df[num].where(~((df[num]<lower) | (df[num]>upper)),np.nan)
+num
+df.boxplot(num)
+
+df['DBMS_marks']=df['DBMS']
+df['DBMS_marks'].plot(kind='hist')
+df['log_DBMS']=np.log10(df['DBMS'])
+df['log_DBMS'].plot(kind='hist')

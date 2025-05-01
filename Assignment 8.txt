@@ -1,0 +1,36 @@
+Assignment 8  JCBVPHKSS
+
+import numpy as np
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = sns.load_dataset('titanic')
+
+df = df[['survived', 'class', 'sex', 'age', 'fare']]
+
+df = df.dropna()
+
+sns.jointplot(x='age', y='fare', data=df)
+sns.jointplot(x='age', y='fare', data=df, hue='survived')
+
+sns.countplot(x='class', data=df)
+sns.countplot(x='sex', data=df, hue='survived')
+
+sns.barplot(x='class', y='survived', data=df)
+sns.barplot(x='sex', y='survived', hue='class', data=df)
+
+sns.violinplot(x='sex', y='age', data=df, hue='survived')
+sns.violinplot(x='sex', y='age', data=df, hue='survived', split=True)
+
+sns.pairplot(df[['age', 'fare', 'survived', 'sex']], hue='sex')
+
+sns.histplot(df['fare'], kde=False)
+
+sns.kdeplot(df['fare'], fill=True)
+
+sns.stripplot(x='sex', y='age', data=df, jitter=True)
+
+sns.swarmplot(x='sex', y='age', data=df, hue='survived')
+
+plt.show()

@@ -1,0 +1,104 @@
+Assignment 3
+
+import pandas as pd
+import numpy as np
+
+from sklearn.datasets import load_iris
+df=load_iris()
+df = pd.read_csv('/Mall_Customers-Ass3_dataset.csv')
+
+gr1=df.groupby('Genre')
+gr1
+male_group = gr1.get_group('Male')
+female_group = gr1.get_group('Female')
+
+gr2=df.groupby('Age')
+age_30_group = gr2.get_group(30)
+print(age_30_group)
+age_20_group = gr2.get_group(20)
+print(age_20_group)
+
+gr1.mean()
+gr2.describe()
+
+gr2.groups
+
+f=df[df['Genre']=='Female']
+
+median_age=f['Age'].median()
+print({median_age})
+
+f=df[df['Genre']=='Female']
+median_age=f['Age'].median()
+print({median_age})
+df1=df.head()
+df1
+
+df.rename(columns={'Income (k$)':'Annual Income'},inplace=True)
+
+
+
+import pandas as pd
+
+# Load dataset
+df = pd.read_csv('/Mall_Customers-Ass3_dataset.csv')
+
+# Rename column
+df.rename(columns={'Income (k$)': 'Annual Income'}, inplace=True)
+
+# Group by Genre
+genre_grp = df.groupby('Genre')
+
+# Subsets
+male = genre_grp.get_group('Male')
+female = genre_grp.get_group('Female')
+
+# Group by Age
+age_grp = df.groupby('Age')
+
+# Subsets by Age
+age_30 = age_grp.get_group(30)
+age_20 = age_grp.get_group(20)
+
+# Group statistics
+genre_grp.mean(numeric_only=True)
+age_grp.describe()
+age_grp.groups
+
+# Mean, median, mode for female age
+female['Age'].mean()
+female['Age'].median()
+female['Age'].mode()[0]
+
+# First few rows
+df.head()
+
+import pandas as pd
+from sklearn.datasets import load_iris
+
+# Load Iris dataset
+iris = load_iris()
+df = pd.DataFrame(iris.data, columns=iris.feature_names)
+df['species'] = iris.target
+df['species'] = df['species'].map(dict(enumerate(iris.target_names)))
+
+# Group by species
+species_grp = df.groupby('species')
+
+# Subsets
+setosa = species_grp.get_group('setosa')
+versicolor = species_grp.get_group('versicolor')
+virginica = species_grp.get_group('virginica')
+
+# Group statistics
+species_grp.mean(numeric_only=True)
+species_grp.describe()
+species_grp.groups
+
+# Mean, median, mode for setosa sepal length
+setosa['sepal length (cm)'].mean()
+setosa['sepal length (cm)'].median()
+setosa['sepal length (cm)'].mode()[0]
+
+# First few rows
+df.head()

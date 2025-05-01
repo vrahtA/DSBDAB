@@ -1,0 +1,25 @@
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler, LabelEncoder
+
+df = pd.read_csv("/content/nba.csv")
+df["Salary"] = pd.to_numeric(df["Salary"], errors='coerce')  # Ensure Salary is numeric
+df["Salary"].fillna(df["Salary"].mean(), inplace=True)       # Replace NaN in Salary with mean
+df.fillna(method='bfill', inplace=True)                      # Fill other NaNs with backfill
+
+print(df.isna().sum())
+print(df.dtypes)
+print(df.describe())
+print(df.info())
+
+r = df[['Salary']].values.astype(float)
+print("Array dimension:", df.ndim)
+
+df1 = df.iloc[0:5]
+df1.style.set_properties(**{"background-color": "blue", "color": "green"})
+
+scaled = MinMaxScaler().fit_transform(df[['Age', 'Salary']])
+df_norm = pd.DataFrame(scaled, columns=['Age', 'Salary'])
+print(df_norm.head())
+
+df['Position'] = LabelEncoder().fit_transform(df['Position'])
